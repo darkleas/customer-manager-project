@@ -11,7 +11,7 @@ Password: 123123123s
 ### Dashboard Page:
 ![alt text](https://i.ibb.co/PZ3Z780/Dashboard.png)
 ### Account Setting Page:
-![alt text](https://i.ibb.co/mq66DKV/Account-Settings.png)
+![alt text](https://i.ibb.co/58BBM3g/Account-Settings.png)
 ### Create Order Page:
 ![alt text](https://i.ibb.co/PYMdJ3G/create-order.png)
 ### Create Product Page:
