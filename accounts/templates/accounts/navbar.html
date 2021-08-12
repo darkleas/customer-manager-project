@@ -1,0 +1,132 @@
+{% load static %}
+<style>
+  .profile {
+    border: 1px solid rgba(184, 184, 184,0.6);
+    border-radius: 50%!important;
+    position: relative!important;
+    text-align: center!important;
+    width: 100px!important;
+  }
+</style>
+<link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+<div class="side-bar shadow p-3">
+  
+  <h5 class="text-center p-3"><span style="font-weight: 300;">DARKLEAS PROJECT</span></h5>
+  <hr>
+  {% if request.user.is_authenticated %}
+  <div class="dropdown show sidebar-link">
+    <a class="btn btn-yellow dropdown-toggle" style="color:White!important;background-color: #fb8c00;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <i class="fas fa-user mr-2"></i> {{request.user.username}}
+    </a>
+  
+    <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
+      {% if request.user.customer.profile_pic %}
+      <img  onError="this.onerror=null;this.src='{% static 'default-user-image.png' %}';" src="{{request.user.customer.profile_pic.url}}" class="profile img-fluid" style="width: 100px;text-align: center;" alt="">
+
+   {% else %}
+      <img src="{% static 'default-user-image.png' %}" class="profile img-fluid" style="width: 100px;text-align: center;" alt="">
+
+   {% endif %}
+      <hr>
+      <a class="dropdown-item" href="/user/">Profile</a>
+      <a class="dropdown-item" href="/account/">Account Settings</a>
+    </div>
+  </div>
+    <a href="/user/" class="sidebar-link"></a>
+    <a href="/logout/" class="sidebar-link"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
+  {% else %}
+    <a href="/login/" class="sidebar-link"><i class="fas fa-sign-in-alt mr-2"></i> Login</a>
+    <a href="/register/" class="sidebar-link"><i class="fas fa-user-plus mr-2"></i> Register</a>
+  {% endif %}
+ 
+  <hr>
+  <a href="/" class="sidebar-link"><i class="fas fa-chart-line mr-2"></i>  Dashboard</a>
+  <a href="/products/" class="sidebar-link"><i class="fas fa-archive mr-2"></i>  Products</a>
+  <a href="/orders/" class="sidebar-link"><i class="fas fa-truck-moving mr-2"></i>  Orders</a>
+  <a href="/create_order/" class="sidebar-link"><i class="fas fa-plus-circle mr-2"></i> Create Order</a>
+  <a href="/create_product/" class="sidebar-link"><i class="fas fa-plus-circle mr-2"></i> Create Product</a>
+  <hr></hr>
+  <a target="_blank" href="http://darkleas.com/" class="sidebar-link"><i class="fas fa-user mr-2"></i> About me</a>
+
+
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+  <a class="navbar-brand" href="#">DARKLEAS PROJECT</a>
+  <button class="navbar-toggler " style="float: right;cursor: pointer;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon" style="cursor: pointer;"></span>
+  </button>
+ 
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      {% if request.user.is_authenticated %}
+      <li class="nav-item">
+        <div class="dropdown show" style="margin-top: 1rem;">
+          <a class="btn btn-yellow dropdown-toggle" style="color:White!important;background-color: #fb8c00;" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <i class="fas fa-user mr-2"></i> {{request.user.username}}
+          </a>
+        
+          <div class="dropdown-menu text-center" aria-labelledby="dropdownMenuLink">
+            {% if request.user.customer.profile_pic %}
+               <img  onError="this.onerror=null;this.src='{% static 'default-user-image.png' %}';" src="{{request.user.customer.profile_pic.url}}" class="profile img-fluid" style="width: 100px;text-align: center;" alt="">
+
+            {% else %}
+               <img src="{% static 'default-user-image.png' %}" class="profile img-fluid" style="width: 100px;text-align: center;" alt="">
+
+            {% endif %}
+            <hr>
+            <a class="dropdown-item" href="/user/">Profile</a>
+            <a class="dropdown-item" href="/account/">Account Settings</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/logout/"><i class="fas fa-sign-in-alt mr-2"></i>Logout</a>
+      </li>
+
+
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="/login/"><i class="fas fa-sign-in-alt mr-2"></i>Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/register/"><i class="fas fa-user-plus mr-2"></i>Register</a>
+      </li>
+   
+
+      {% endif %}
+      <hr style="width: 100%; height: 1px; background-color: rgba(0,0,0,.1)!important;margin-top: 1rem;
+      margin-bottom: 1rem;
+      border: 0;">
+
+      <li class="nav-item">
+        <a class="nav-link" href="/"><i class="fas fa-chart-line mr-2"></i> Dashboard <span class="sr-only">(current)</span></a>
+      </li>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/products/"><i class="fas fa-archive mr-2"></i>Products</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/orders/"><i class="fas fa-truck-moving mr-2"></i>Orders</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/create_order/"><i class="fas fa-plus-circle mr-2"></i>Create Order</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/create_product/"><i class="fas fa-plus-circle mr-2"></i>Create Product</a>
+      </li>
+      <hr style="width: 100%; height: 1px; background-color: rgba(0,0,0,.1)!important;margin-top: 1rem;
+      margin-bottom: 1rem;
+      border: 0;">
+      <li class="nav-item">
+        <a target="_blank" href="http://darkleas.com/" class="nav-link"><i class="fas fa-user mr-2"></i> About me</a>
+      </li>
+
+    </ul>
+    
+
+  </div>
+</nav>

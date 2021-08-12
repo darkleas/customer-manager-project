@@ -1,0 +1,60 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+<style>
+    select {
+        color: rgb(63, 63, 63);
+    transition: all 0.1s linear;
+    width: 100%;
+    border: 1px solid rgba(209, 209, 209, 0.5);
+    outline: none;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    }
+    input {
+        color: rgb(63, 63, 63);
+    transition: all 0.1s linear;
+    width: 100%;
+    border: 1px solid rgba(209, 209, 209, 0.5);
+    outline: none;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    }
+</style>
+<div class="containers mt-5">
+    <div class="col-md-4 m-auto" style="padding:0;margin:0;">
+        <div class="card card-body shadow-sm">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {% if form.customer %}
+                <div class="fieldWrapper">
+                    {{ form.customer.errors }}
+                    <label for="{{ form.customer.id_for_label }}">Customer</label>
+                    {{ form.customer }}
+                </div>
+                {% endif %}
+
+                 <div class="fieldWrapper">
+                     {{ form.product.errors }}
+                     <label for="{{ form.product.id_for_label }}">Product</label>
+                     {{ form.product }}
+                 </div>
+                 {% if form.status %}
+                 <div class="fieldWrapper">
+                    {{ form.status.errors }}
+                    <label for="{{ form.status.id_for_label }}">Status</label>
+                    {{ form.status }}
+                </div>
+                 {% endif %}
+
+                <button class="btn btn-yellow" type="submit" name="submit" id="">Save</button>
+            </form>
+         
+         </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+{% endblock content %}

@@ -1,0 +1,363 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+        select {
+        outline: none;
+        border: rgb(182, 182, 182) 1px solid    ;
+        padding: 5px 15px;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    label {
+        font-weight: 300;
+    }
+    .fieldWrapper input {
+        color: rgb(63, 63, 63);
+        transition: all 0.1s linear;
+        width: 100%;
+        border: 1px solid rgba(209, 209, 209, 0.5);
+        outline: none;
+        padding: 10px;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+
+
+    }
+
+    form ul {
+        padding-left:0;
+        list-style: none;
+    }
+    .errorlist li {
+        background-color: #e53935;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+}
+    
+ 
+    #sa {
+        background-color: #43a047;
+        border: 0;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 25px;
+        margin-top: 1rem;
+        
+    }
+    .edit-pic {
+        transition: transform 0.1s linear;
+        right: 30%;bottom: 0;z-index: 5000;position: absolute;text-align: center;height: 45px;width: 45px;padding: 10px;color:white;;border-radius: 50%;background-color: #fb8c00;
+        cursor: pointer;
+    }
+    .edit-pic:hover {
+        transform: scale(1.2);
+    }
+    .darkbg2 {
+        transition: all 2s;
+        overflow: hidden;
+    z-index: 50000;
+    background-color: #000;
+    opacity: 0.55;
+    -webkit-animation: slbOverlay 0.5s;
+    -moz-animation: slbOverlay 0.5s;
+    animation: slbOverlay 0.5s;
+        position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    }
+    .darkbg{
+        padding: 1rem;
+
+        transition: all 2s;
+
+        display: none;
+        z-index: 500000;
+        position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    }
+    .edit-pic-page {
+        opacity: 10!important;
+        position: relative;
+        top: 40%;
+        margin: auto;
+        width: auto;
+        max-width: 450px;
+        z-index: 120020;
+        background-color: white;
+    }
+    .edit-pic-page p {
+        margin-bottom: 0;
+    }
+    .edit-pic-page card {
+        opacity: 1!important;
+
+        z-index: 2110020;
+
+    }
+    .iti {
+        width: 100%!important;
+
+    }
+    #id_phone {
+        width: 100%!important;
+    }
+
+.iti__flag {
+  height: 15px;
+  box-shadow: 0px 0px 1px 0px #888;
+  background-image: url("https://cdn.discordapp.com/attachments/806478321105371147/831530855284604978/flags.png");
+  background-repeat: no-repeat;
+  background-color: #DBDBDB;
+  background-position: 20px 0; }
+  .iti--container {
+      z-index: 9999999!important;
+  }
+
+.iti__selected-flag
+{
+    outline: 0!important;
+}
+.iti-mobile .iti__country-list{
+    max-height: 75%!important;
+    width: 85%!important;
+}
+</style>
+<head>
+    <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
+</head>
+<style>
+    
+</style>
+<div class="containers mt-5">
+    <div class="col-md-12" style="margin: 0;padding: 0;">
+        <div class="row">
+            <div class="col-xl-3 mb-4 col-md-12 ">
+                <div class="card-body text-center card">
+    
+
+                    <a href="/user/" class="btn btn-yellow"><i class="fas fa-caret-left"></i> Back To Profile</a>
+                    <hr>
+
+                    <div class="img" style="position: relative;">
+                        {% if request.user.customer.profile_pic %}
+                        
+                       <img  loading="lazy"  onError="this.onerror=null;this.src='{% static 'default-user-image.png' %}';" class="img-fluid profil-pic" src="{{request.user.customer.profile_pic.url}}" alt="">
+
+                       {% else %}
+                        <img loading="lazy"  class="img-fluid profil-pic" src="{% static 'default-user-image.png' %}" alt="">
+
+                        {% endif %}
+                        <form class="form3" action="" method="POST" data-ajax="false" enctype="multipart/form-data" style="display: none;">
+                            {% csrf_token %}
+                            {{ form3.profile_pic }}
+    
+                        </form>
+
+
+                        <div class="darkbg">
+                            <div class="darkbg2"></div>
+                            <div class="shadow card card-body edit-pic-page">
+                                <h5 style="font-weight: 800;margin: 0.2;padding: 0.2;">Profile Picture</h5>
+                                <hr>
+                                <p style="cursor: pointer;" class="upload-photo"><i style="color: #00acc1;" class="fas fa-upload"></i>  Upload profile photo</p>
+                                <hr>
+                                <form class="form4" action="" method="POST" >
+                                    {% csrf_token %}
+                                    <input type="text" name="removepicture" style="display: none;" id="">
+
+                                    <p style="cursor: pointer;" class="remove-photo"><i style="color: #e53935;" class="fas fa-trash"></i> Remove profile photo</p>
+
+            
+                                </form>
+                                <hr>
+                                <p style="cursor: pointer;" class="cancel"> Cancel</p>
+
+
+                            </div>
+
+                        </div>
+
+                        <div class="shadow edit-pic"><i class="fas fa-edit" style="font-size: 24px;" aria-hidden="true"></i></div>
+
+                    </div>
+                    <form class="mt-4" action="">
+                        {{ form3.non_field_errors }}
+                    </form>
+
+
+                </div>
+            </div>
+            <div class="col-xl-5 col-md-12 mb-4 ">
+                <div class="card card-body ">
+                    <h5>Account Settings</h5>
+                    <hr>
+                    <form id="form1" action="" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="fieldWrapper s">
+                           
+                            {{ form.name.errors }}
+                            <label class="text-muted"  for="{{ form.name.id_for_label }}"><i class="fas fa-user"></i> Name</label>
+                            {{ form.name }}
+                        </div>
+
+                        <div class="fieldWrapper s">
+                            {{ form.phone.errors }}
+                            <label class="text-muted"  for="{{ form.phone.id_for_label }}"><i class="fas fa-phone"></i> Phone</label><br>
+                            {{ form.phone }}
+                        </div>
+                        <br>
+                        <div class="fieldWrapper s">
+                            {{ form.email.errors }}
+                            <label class="text-muted"  for="{{ form.email.id_for_label }}"><i class="fas fa-envelope"></i> Email</label>
+                            {{ form.email }}
+                        </div>
+
+
+                        <hr>
+                        {% if error %}
+                          <ul class="errorlist"><li>{{error}}</li></ul>
+                       {% endif %}
+                        <div class="fieldWrapper s">
+                            {{ form.password.errors }}
+                            <label class="text-muted"  for="{{ form.password.id_for_label }}"><i class="fas fa-key"></i> Confirm Password</label>
+                            {{ form.password }}
+                        </div>
+                        <div>
+                            <input type="submit" class="text-center btn btn-yellow" name="submit" value="Update">
+                            
+                        </div>
+
+                    </form>
+                </div>  
+            </div>
+            <div class="col-xl-4">
+                <div class="card card-body">
+                    <h5>Reset Password</h5>
+                    <hr>
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {{ form2.non_field_errors }}
+
+                        <div class="fieldWrapper s">
+                            {{ form2.new_password1.errors }}
+                            <label class="text-muted"  for="{{ form2.new_password1.id_for_label }}"><i class="fas fa-key"></i> New password</label>
+                            {{ form2.new_password1 }}
+                        </div>
+                        <div class="fieldWrapper s">
+                            {{ form2.new_password2.errors }}
+                            <label class="text-muted"  for="{{ form2.new_password2.id_for_label }}"><i class="fas fa-key"></i> New password confirmation</label>
+                            {{ form2.new_password2 }}
+                        </div>
+                        <hr>
+                        {% if error2 %}
+                        <ul class="errorlist"><li>{{error2}}</li></ul>
+                     {% endif %}
+                        <div class="fieldWrapper s">
+                            {{ form2.old_password.errors }}
+                            <label class="text-muted"  for="{{ form2.old_password.id_for_label }}"><i class="fas fa-key"></i> Old password</label>
+                            {{ form2.old_password }}
+                        </div>
+                        <div>
+                            <input type="submit" class="text-center btn btn-yellow" name="submit" value="Submit">
+                            
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'js/intlTelInput.js' %}"></script>
+<script class="iti-load-utils" async="" src="{% static 'js/utils.js' %}"></script>
+
+<script>
+
+    var input = document.querySelector("#id_phone");
+    window.intlTelInput(input, {
+      // allowDropdown: false,
+       autoHideDialCode: true,
+      // autoPlaceholder: "off",
+      // dropdownContainer: document.body,
+      // excludeCountries: ["us"],
+      // formatOnDisplay: false,
+      // geoIpLookup: function(callback) {
+      //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+    //       var countryCode = (resp && resp.country) ? resp.country : "";
+    //       callback(countryCode);
+  //       });
+   //    },
+      // hiddenInput: "full_number",
+       initialCountry: "us",
+      // localizedCountries: { 'de': 'Deutschland' },
+      // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+      // placeholderNumberType: "MOBILE",
+      // preferredCountries: ['cn', 'jp'],
+       separateDialCode: true,
+      utilsScript: "{% static 'js/utils.js' %}",
+    });
+  
+$( document ).ready(function() {
+
+    document.getElementById("id_old_password").autofocus = false;
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+
+    $('#form1').on('submit',function()
+    {
+      
+        if($('#id_phone').val() != "" )
+        {
+            $('#id_phone').val($('.iti__selected-dial-code').html()+ $('#id_phone').val())
+
+        }
+        console.log($('#id_phone').val().indexOf($('.iti__selected-dial-code').html()))
+        if($('#id_phone').val().indexOf($('.iti__selected-dial-code').html()) == -1)
+        {
+            console.log("girdi")
+            $('#id_phone').val( $('#id_phone').val())
+
+        }
+
+   
+
+    })
+    $('.upload-photo').on('click',function(){
+        $('#id_profile_pic').trigger('click');
+
+    })
+    $('.edit-pic').on('click',function(){
+        $('.darkbg').css('display','block')
+
+    })
+    $('.darkbg2').on('click',function(){
+        $('.darkbg').css('display','none')
+
+    })
+
+    $('.form3 #id_profile_pic').on('change', function() {
+      this.form.submit();
+    });
+
+    $('.form4 .remove-photo').on('click', function() {
+      $('.form4').submit()
+    });
+    $('.cancel').on('click',function(){
+        $('.darkbg').css('display','none')
+
+    })
+
+});
+
+
+</script>
+
+{% endblock content %}

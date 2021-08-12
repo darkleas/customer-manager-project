@@ -1,0 +1,52 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+<div class="containers mt-5">
+    <div class="card card-body table-responsive ">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Category</th>
+                    <th>Tags</th>
+
+                    <th>Update</th>
+                    <th>Remove</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in products %}
+    
+            
+                <tr>
+                    <td>{{i.name}}</td>
+                    <td>{{i.price}}</td>
+                    <td>{{i.category}}</td>
+                    <td>
+                        {{i.tags.all}}
+                    </td>
+
+                    <td class="text-center"><a href="{% url 'update_product' i.id %}">           <i class="fas fa-edit"style="color: #00acc1;font-size: 34px;"></i>                      </a></td>
+                    <td class="text-center"><a href="{% url 'delete_product' i.id %}">            <i class="fas fa-trash"style="color: #e53935;font-size: 34px;"></i>                      </a></td>
+                </tr>
+             
+               {% endfor %}
+            
+            </tbody>
+        </table>
+    
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+<script>
+    $(document).ready( function () {
+        $('#example').DataTable({
+            responsive: true
+
+        });
+    } );
+</script>
+{% endblock content %}

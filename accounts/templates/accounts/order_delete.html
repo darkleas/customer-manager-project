@@ -1,0 +1,18 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+<div class="containers mt-5">
+    <div class="card card-body">
+        <p>Are you sure you want to delete <span style="font-weight: 700;">{{order.product}}</span>?</p>
+        <div class="row">
+            <a href="/orders/" class="" style="background-color: #00acc1;color: white;text-decoration: none;padding: 10px;border-radius: 5px; margin-left: 0.9rem;">Cancel</a>
+            <form action='{% url "delete_order" order.id %}' method="POST">
+                {% csrf_token %}
+                <input value="Delete" type="submit" class="" style="background-color: #e53935;color: white;padding: 10px;border-radius: 5px; margin-left: 2rem;border: 0;">
+            </form>
+
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+{% endblock content %}

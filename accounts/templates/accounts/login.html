@@ -1,0 +1,114 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+{% load static %}
+<style>
+    select {
+        outline: none;
+        border: rgb(182, 182, 182) 1px solid    ;
+        padding: 5px 15px;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    label {
+        font-weight: 300;
+    }
+    .fieldWrapper input {
+        color: rgb(63, 63, 63);
+        transition: all 0.1s linear;
+        width: 100%;
+        border: 1px solid rgba(209, 209, 209, 0.5);
+        outline: none;
+        padding: 10px;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+
+
+    }
+
+    form ul {
+        padding-left:0;
+        list-style: none;
+    }
+    form li {
+        background-color: #e53935;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+    }
+    #sa {
+        background-color: #43a047;
+        border: 0;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 25px;
+        margin-top: 1rem;
+        
+    }
+    i {
+        margin-right: 0.5rem;
+    }
+    .social {
+        height: 48px;
+        width: 48px!important;
+        cursor: pointer;
+       font-size: 52px;
+    }
+    
+    #facebook-icon {
+       color: #4267B2;
+    }
+</style>
+<div class="containers mt-5">
+    <div class="row reg-log-page">
+
+        <div class="pl-3 pr-3 m-auto zz">
+            <div class="m-auto zz">
+                <div class="card card-body shadow-sm">
+                    <h2 class="text-center text-dark" style="font-weight:300">Login</h2>
+                    <br>
+                    <hr>
+                    <br>
+                    {% if next %}
+                      <form action="/login/?next={{next}}" method="post" >
+                    {%else%}
+                      <form action="/login/" method="post" >
+                    {% endif %}
+                        {% csrf_token %}
+                        {% if error %}
+                            <ul class="errorlist"><li>{{error}}</li></ul>
+                        {% endif %}
+                         <div class="fieldWrapper">
+                             <label class="text-muted" for="username"><i class="fas fa-user"></i> Username</label>
+                             <input type="text" name="username" maxlength="150" autofocus="" required="" id="id_username">
+                        </div>
+                         <div class="fieldWrapper">
+                             <label class="text-muted"  for="password"><i class="fas fa-key"></i> Password</label>
+                             <input type="password" name="password" autocomplete="new-password" required="" id="id_password1">
+                        </div>
+
+                        <div class="text-center">
+                            <input type="submit" style="padding: 5px 25px;" class="text-center btn btn-yellow" name="submit" value="Login">
+                            
+                        </div>
+                        <div class="text-right mt-3">
+                            <p class="text-center" style="font-weight: 300;"><a style="font-size: 14px;font-weight: 300;" href="/reset_password/">Forgot password?</a></p>
+                            
+                        </div>
+                        
+
+    
+                    </form>
+                 
+                 </div>
+                 
+                 <div class="card card-body mt-2" style="padding: 20px;">
+                    <div class="text-center" style="padding: 0;">
+                        <p style="font-weight: 300; margin: 0;font-size: 15px;">Don't have account? <a href="/register/">Register</a></p>
+                    </div>
+                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

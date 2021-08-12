@@ -1,0 +1,261 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+<head>
+    <link rel="stylesheet" href="{% static 'css/lightslider.css' %}">
+
+    <script src="{% static 'js/lightslider.js' %}"></script>
+
+</head>
+
+<div class="containers mt-5">
+
+    <div class="row mb-5">
+        <div class="col-xl-3 col-lg-6 mb-4">
+            <div class="card card-body shadow-sm" style="position: relative;">
+                <div class="icon shadow">
+                    <i class="fas fa-wallet text-white"></i>
+                </div>
+                <p class="text-right text-muted" style="margin-bottom: 0.3rem;">Total Money</p>
+                <p class="text-right" style="font-size: 30px;font-weight: 300;">{{total_money}}</p>
+
+                <hr style="margin-top: 0;">
+                
+                <p class="text-left text-muted" style="margin-bottom: 0.3rem;">Total Money in 24 hours</p>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 mb-4">
+            <div class="card card-body shadow-sm" style="position: relative;">
+                <div class="icon shadow" style="background-color: #00acc1;">
+                    <i class="fas fa-box text-white"></i>
+                </div>
+                <p class="text-right text-muted" style="margin-bottom: 0.3rem;">Total Orders</p>
+                <p class="text-right" style="font-size: 30px;font-weight: 300;">{{total_orders}}</p>
+
+                <hr style="margin-top: 0;">
+                
+                <p class="text-left text-muted" style="margin-bottom: 0.3rem;">All Orders</p>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 mb-4">
+            <div class="card card-body shadow-sm" style="position: relative;">
+                <div class="icon shadow">
+                    <i class="fas fa-check-circle text-white"></i>
+                </div>
+                <p class="text-right text-muted" style="margin-bottom: 0.3rem;">Order Delivered</p>
+                <p class="text-right" style="font-size: 30px;font-weight: 300;">{{order_delivered}}</p>
+
+                <hr style="margin-top: 0;">
+                
+                <p class="text-left text-muted" style="margin-bottom: 0.3rem;">All Order Delivered</p>
+            </div>
+        </div>
+        <div class="col-xl-3 col-lg-6 mb-4">
+            <div class="card card-body shadow-sm" style="position: relative;">
+                <div class="icon shadow" style="background-color:#fb8c00;">
+                    <i class="fas fa-info-circle text-white"></i>
+                </div>
+                <p class="text-right text-muted" style="margin-bottom: 0.3rem;">Order Pending</p>
+                <p class="text-right" style="font-size: 30px;font-weight: 300;">{{order_pending}}</p>
+
+                <hr style="margin-top: 0;">
+                
+                <p class="text-left text-muted" style="margin-bottom: 0.3rem;">All Order Pending</p>
+            </div>
+        </div>
+    
+    </div>
+    <div class="row mb-5">
+        <div class="col-sm-12 col-md-12 col-xl-6 mb-4">
+            <h5>Customers</h5>
+            <hr>
+            <div class="card card-body shadow-sm table-responsive">
+                <table id="example" class="table table-striped table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Profile</th>
+                            <th>Customer</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in customers %}
+    
+                    
+                        <tr>
+                            <th><a href="{% url 'customer' i.id %}">View</a></th>
+                            <td>{{i.name}}</td>
+                            <td>{{i.email}}</td>
+                            <td>{{i.phone}}</td>
+                        </tr>
+                     
+                       {% endfor %}
+                    
+                    </tbody>
+                </table>
+    
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-xl-6 mb-4">
+            <h5>Last 5 Day Orders</h5>
+            <hr>
+            <div class="card card-body shadow-sm">
+                <canvas id="pie-chart"></canvas>
+    
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-xl-6 mb-4">
+            <h5>New users</h5>
+            <hr>
+
+
+
+            {% if new_users.count == 0 %}
+            <div class="alert alert-warning" style="background-color: #fb8c00;">
+                <h5 style="color: white;">There is no new users</h5>
+            </div>
+            {% else %}
+            <ul id="autoWidth" class="cs-hidden">
+                {% for i in new_users %}
+                   <li class="item-a">
+                       <div class="showcase-box">
+                           <div class="card card-body">
+                                <div class="text-center">
+                                    {% if i.profile_pic %}
+                                      <img  loading="lazy"  style="width:125px!important;height:125px!important;"  onError="this.onerror=null;this.src='{% static 'default-user-image.png' %}';" class="img-fluid profil-pic" src="{{i.profile_pic.url}}" alt="">
+  
+                                    {% else %}
+                                       <img loading="lazy" style="width:125px!important;height:125px!important;"  class="img-fluid profil-pic" src="{% static 'default-user-image.png' %}" alt="">
+  
+                                     {% endif %}
+                                </div>
+                                <h5 class="text-center mt-3">{{i.user.username}}</h5>
+                                <a class="btn btn-yellow" href="/customer/{{i.id}}" name="submit" id="">Go to profile</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>       
+            {% endif %}
+ 
+
+        </div>
+        <div class="col-sm-12 col-md-12 col-xl-6 mb-4">
+            <h5>Last 5 Day Total Money</h5>
+            <hr>
+            <div class="card card-body shadow-sm">
+                <canvas id="pie-chart2"></canvas>
+    
+            </div>
+        </div>
+    
+     
+    </div>
+
+
+</div>
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
+<script>
+ $(document).ready(function() {
+    $('#autoWidth,#autoWidth2').lightSlider({
+        autoWidth:true,
+        loop:false,
+        onSliderLoad: function() {
+            $('#autoWidth,#autoWidth2').removeClass('cS-hidden');
+        } 
+    });  
+  });
+$(document).ready( function () {
+    $('#example').DataTable({
+            responsive: true
+
+        });
+} );
+$(document).ready( function () {
+    $('#example2').DataTable({
+            responsive: true
+
+        });
+} );
+    
+    var chartColors = {
+  red: 'rgb(255, 99, 132)',
+  orange: 'rgb(255, 159, 64)',
+  yellow: 'rgb(255, 205, 86)',
+  green: 'rgb(75, 192, 192)',
+  blue: 'rgb(54, 162, 235)',
+  purple: 'rgb(153, 102, 255)',
+  grey: 'rgb(231,233,237)'
+};
+
+var config = {
+    type: 'line',
+    data: {
+      datasets: [{
+        data: {{ data|safe }},
+        backgroundColor: chartColors.blue,
+        borderColor: chartColors.blue,
+        borderWidth: 3,
+        fill: false,
+
+
+        label: 'Orders'
+      }],
+      labels: {{ labels|safe }}
+    },
+    options: {
+      responsive: true,
+    }
+  };
+  
+
+  //second
+  var chartColors2 = {
+  red: 'rgb(255, 99, 132)',
+  orange: 'rgb(255, 159, 64)',
+  yellow: 'rgb(67, 160, 71)',
+  green: 'rgb(67, 160, 71)',
+  blue: 'rgb(0, 172, 193)',
+  purple: 'rgb(153, 102, 255)',
+  grey: 'rgb(231,233,237)'
+};
+
+var config2 = {
+    type: 'bar',
+    data: {
+      datasets: [{
+        data: {{ data2|safe }},
+        backgroundColor: chartColors2.green,
+        borderColor: chartColors2.green,
+        borderWidth: 3,
+        fill: false,
+
+
+        label: 'Total Money'
+      }],
+      labels: {{ labels2|safe }}
+    },
+    options: {
+      responsive: true,
+    }
+  };
+  
+  window.onload = function() {
+    var ctx = document.getElementById('pie-chart').getContext('2d');
+    window.myPie = new Chart(ctx, config);
+    var ctx2 = document.getElementById('pie-chart2').getContext('2d');
+    window.myPie = new Chart(ctx2, config2);
+  };
+  
+  
+  
+  
+
+  
+</script>
+{% endblock content %}

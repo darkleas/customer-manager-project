@@ -1,0 +1,103 @@
+{% extends 'accounts/main.html' %}
+{% load static %}
+{% block content %}
+  
+
+
+<div class="containers mt-5">
+    <h5>Profile</h5>
+    <hr>
+    <div class="row mb-5">
+
+        <div class="col-xl-4 col-lg-6 mb-4">
+            <div class="card card-body shadow-sm" style="position: relative;">
+                <div class="icon shadow" style="background-color: #00acc1;">
+                    <i class="fas fa-box text-white"></i>
+                </div>
+                <p class="text-right text-muted" style="margin-bottom: 0.3rem;">Total Orders</p>
+                <p class="text-right" style="font-size: 30px;font-weight: 300;">{{total_orders}}</p>
+
+                <hr style="margin-top: 0;">
+                
+                <p class="text-left text-muted" style="margin-bottom: 0.3rem;">All Orders</p>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 mb-4">
+            <div class="card card-body shadow-sm" style="position: relative;">
+                <div class="icon shadow">
+                    <i class="fas fa-check-circle text-white"></i>
+                </div>
+                <p class="text-right text-muted" style="margin-bottom: 0.3rem;">Order Delivered</p>
+                <p class="text-right" style="font-size: 30px;font-weight: 300;">{{order_delivered}}</p>
+
+                <hr style="margin-top: 0;">
+                
+                <p class="text-left text-muted" style="margin-bottom: 0.3rem;">All Order Delivered</p>
+            </div>
+        </div>
+        <div class="col-xl-4 col-lg-6 mb-4">
+            <div class="card card-body shadow-sm" style="position: relative;">
+                <div class="icon shadow" style="background-color:#fb8c00;">
+                    <i class="fas fa-info-circle text-white"></i>
+                </div>
+                <p class="text-right text-muted" style="margin-bottom: 0.3rem;">Order Pending</p>
+                <p class="text-right" style="font-size: 30px;font-weight: 300;">{{order_pending}}</p>
+
+                <hr style="margin-top: 0;">
+                
+                <p class="text-left text-muted" style="margin-bottom: 0.3rem;">All Order Pending</p>
+            </div>
+        </div>
+    
+    </div>
+    <h5>Your orders</h5>
+    <hr>
+    <div class="card card-body table-responsive">
+        <table id="example" class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Category</th>
+                    <th>Date Ordered</th>
+                    <th>Status</th>
+                    <th>Update</th>
+                    <th>Remove</th>
+    
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in orders %}
+    
+            
+                <tr>
+    
+                    <td>{{i.product}}</td>
+                    <td>{{i.product.category}}</td>
+                    <td>{{i.date_created}}</td>
+                    <td>{{i.status}}</td>
+                    <td class="text-center"><a href="{% url 'update_order' i.id %}">           <i class="fas fa-edit"style="color: #00acc1;font-size: 34px;"></i>                      </a></td>
+                    <td class="text-center"><a href="{% url 'delete_order' i.id %}">            <i class="fas fa-trash-alt"style="color: #e53935;font-size: 34px;"></i>                      </a></td>
+    
+                </tr>
+             
+               {% endfor %}
+            
+            </tbody>
+        </table>
+    </div>
+
+    
+
+
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+<script>$(document).ready( function () {
+    $('#example').DataTable({
+            responsive: true
+
+        });
+} );</script>
+{% endblock content %}

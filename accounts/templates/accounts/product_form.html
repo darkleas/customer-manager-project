@@ -1,0 +1,65 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+<style>
+    select {
+        color: rgb(63, 63, 63);
+    transition: all 0.1s linear;
+    width: 100%;
+    border: 1px solid rgba(209, 209, 209, 0.5);
+    outline: none;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+    }
+    input {
+        color: rgb(63, 63, 63);
+    transition: all 0.1s linear;
+    width: 100%;
+    border: 1px solid rgba(209, 209, 209, 0.5);
+    outline: none;
+    padding: 10px;
+    margin-bottom: 1rem;
+    border-radius: 5px;
+        
+    }
+</style>
+<div class="containers mt-5">
+    <div class="col-md-4 m-auto" style="padding:0;margin:0;">
+        <div class="card card-body shadow-sm">
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                 <div class="fieldWrapper">
+                     {{ form.name.errors }}
+                     <label for="{{ form.name.id_for_label }}">Name</label>
+                     {{ form.name }}
+                 </div>
+                 <div class="fieldWrapper">
+                     {{ form.price.errors }}
+                     <label for="{{ form.price.id_for_label }}">Price</label>
+                     {{ form.price }}
+                 </div>
+                 <div class="fieldWrapper">
+                     {{ form.description.errors }}
+                     <label for="{{ form.description.id_for_label }}">Description</label>
+                     {{ form.description }}
+                 </div>
+                 <div class="fieldWrapper">
+                    {{ form.category.errors }}
+                    <label for="{{ form.category.id_for_label }}">Category</label>
+                    {{ form.category }}
+                </div>
+                 <div class="fieldWrapper">
+                    {{ form.tags.errors }}
+                    <label for="{{ form.description.id_for_label }}">Tags</label>
+                    {{ form.tags }}
+                </div>
+                <button class="btn btn-yellow" type="submit" name="submit" id="">Save</button>
+            </form>
+         
+         </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+{% endblock content %}

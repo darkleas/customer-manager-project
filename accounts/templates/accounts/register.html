@@ -1,0 +1,103 @@
+{% extends 'accounts/main.html' %}
+{% block content %}
+{% load static %}
+<style>
+    select {
+        outline: none;
+        border: rgb(182, 182, 182) 1px solid    ;
+        padding: 5px 15px;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    label {
+        font-weight: 300;
+    }
+    .fieldWrapper input {
+        color: rgb(63, 63, 63);
+        transition: all 0.1s linear;
+        width: 100%;
+        border: 1px solid rgba(209, 209, 209, 0.5);
+        outline: none;
+        padding: 10px;
+        margin-bottom: 1rem;
+        border-radius: 5px;
+
+
+    }
+
+    form ul {
+        padding-left:0;
+        list-style: none;
+    }
+    form li {
+        margin-bottom: 1rem;
+
+        background-color: #e53935;
+        color: white;
+        padding: 15px;
+        border-radius: 5px;
+    }
+    #sa {
+        background-color: #43a047;
+        border: 0;
+        border-radius: 5px;
+        color: white;
+        padding: 10px 25px;
+        margin-top: 1rem;
+        
+    }
+    i {
+        margin-right: 0.5rem;
+    }
+    .social {
+        height: 48px;
+        width: 48px!important;
+        cursor: pointer;
+       font-size: 52px;
+    }
+    
+    #facebook-icon {
+       color: #4267B2;
+    }
+</style>
+<div class="containers mt-5">
+    <div class="row reg-log-page">
+        <div class="pl-3 pr-3 m-auto zz">
+            <div class="card card-body shadow-sm zz">
+                <h2 class="text-center text-dark" style="font-weight:300">Register</h2>
+            <br>
+            <hr>
+            <br>
+            <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                 <div class="fieldWrapper">
+                     {{ form.username.errors }}
+                     <label class="text-muted" for="{{ form.customer.id_for_label }}"><i class="fas fa-user"></i> Username</label>
+                     {{ form.username }}
+                 </div>
+                 <div class="fieldWrapper">
+                     {{ form.password1.errors }}
+                     <label class="text-muted"  for="{{ form.password1.id_for_label }}"><i class="fas fa-key"></i> Password</label>
+                     {{ form.password1 }}
+                 </div>
+                 <div class="fieldWrapper s">
+                    {{ form.password2.errors }}
+                    <label class="text-muted"  for="{{ form.password2.id_for_label }}"><i class="fas fa-key"></i> Confirm Password</label>
+                    {{ form.password2 }}
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="text-center btn btn-yellow" name="submit"value="Register">
+                    
+                </div>
+                <div class="text-center mt-3">
+                    <p style="font-weight: 300;font-size: 15px;">Already have an account? <a href="/login/">Login</a></p>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+
+{% endblock content %}
