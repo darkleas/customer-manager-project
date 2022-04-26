@@ -1,10 +1,15 @@
 #### An open source customer manager project. I make sure you have a fully functional website to use on your business.
 
 Admin account;
+(This admin information is just valid for project in repository)
 Username: admin
 Password: 123123123s
 
-(This admin information is just valid for project in repository)
+- I deployed the all images in Amazon AWS through heroku.
+- I also used bootstrap, jquery through cdn.
+
+If you have any questions about anything you can ask through my mail address. 
+Mail address: burhankcd@gmail.com
 
 # Lets see what we have in the website:
 ![](imp.gif)
